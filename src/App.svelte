@@ -1,47 +1,103 @@
 <script>
-	import * as style from './themes/horizon-dark.json';
+	// import Select from 'svelte-select';
+
+	let selectedColorscheme;
+	let colorschemes = ['Horizon Dark','Tokyo Night', 'Catpuccin'];
+
+	let selectedWindowStyle;
+	let windowstyles = ['Mac', 'WM', 'Gnome'];
+
+	import * as horizondark from './themes/horizon-dark.json';
+	import * as tokyonight from './themes/tokyo-night.json';
+	import * as catpuccin from './themes/catpuccin.json';
 
 	import Colorbars from './Colorscript-Colorbars.svelte';
 	import Colorsquare from './Colorscript-Square.svelte';
 	import WindowDecorMac from './Decor-Mac.svelte';
+	import WindowDecorGnome from './Decor-Gnome.svelte';
 	import SourceCodeExample from './SourceCodeExample.svelte';
-
-	let windowStyle = 'mac';
 	
-	$: cssVarStyles = Object.entries(style["default"])
+	$: cssVarStyles = Object.entries(horizondark["default"])
 		.map(([key, value]) => `--${key}:${value}`)
 		.join(';');
 
-	console.log(style);
+	function changeColorscheme() {
+		if (selectedColorscheme == 'Tokyo Night') {
+			cssVarStyles = Object.entries(tokyonight["default"])
+				.map(([key, value]) => `--${key}:${value}`)
+				.join(';');
+		} else if (selectedColorscheme == 'Catpuccin') {
+			cssVarStyles = Object.entries(catpuccin["default"])
+				.map(([key, value]) => `--${key}:${value}`)
+				.join(';');
+		} else if (selectedColorscheme == 'Horizon Dark') {
+			cssVarStyles = Object.entries(horizondark["default"])
+				.map(([key, value]) => `--${key}:${value}`)
+				.join(';');
+		}
+	}
+
 </script>
 
 <main style={cssVarStyles}>
 	<h1>Colorscheme Compare</h1>
+	
+	<div class="themeSelectArea">
+		<div class="singleSelectArea">
+			<h4>Colorscheme</h4>
+			<select class="{selectedWindowStyle}" bind:value={selectedColorscheme} on:change="{() => changeColorscheme()}">
+				{#each colorschemes as colorscheme}
+				<option value={colorscheme}>
+					{colorscheme}
+				</option>
+				{/each}
+			</select>
+		</div>
+		<div class="singleSelectArea">
+			<h4>Window style</h4>
+			<select class="{selectedWindowStyle}" bind:value={selectedWindowStyle}>
+				{#each windowstyles as windowstyle}
+				<option value={windowstyle}>
+					{windowstyle}
+				</option>
+				{/each}
+			</select>
+		</div>
+	</div>
 
-	<div class="terminal {windowStyle}">
+	<div class="terminal {selectedWindowStyle}">
 		<div class="windowdecor">
-			{#if windowStyle == 'mac'}
-				<WindowDecorMac/>
+			{#if selectedWindowStyle == 'Mac'}
+				<WindowDecorMac title="bash-5.1"/>
+			{/if}
+			{#if selectedWindowStyle == 'Gnome'}
+				<WindowDecorGnome title="bash-5.1"/>
 			{/if}
 		</div><br>
 		[user@localhost] ~ # colorscript -r<br><br>
 		<Colorsquare/>
 	</div>
 
-	<div class="terminal {windowStyle}">
+	<div class="terminal {selectedWindowStyle}">
 		<div class="windowdecor">
-			{#if windowStyle == 'mac'}
-				<WindowDecorMac/>
+			{#if selectedWindowStyle == 'Mac'}
+				<WindowDecorMac title="bash-5.1"/>
+			{/if}
+			{#if selectedWindowStyle == 'Gnome'}
+				<WindowDecorGnome title="bash-5.1"/>
 			{/if}
 		</div><br>
 		[user@localhost] ~ # colorscript -r<br><br>
 		<Colorbars/>
 	</div>
 
-	<div class="editor {windowStyle}">
+	<div class="editor {selectedWindowStyle}">
 		<div class="windowdecor">
-			{#if windowStyle == 'mac'}
-				<WindowDecorMac/>
+			{#if selectedWindowStyle == 'Mac'}
+				<WindowDecorMac title="vim"/>
+			{/if}
+			{#if selectedWindowStyle == 'Gnome'}
+				<WindowDecorGnome title="vim"/>
 			{/if}
 		</div>
 		<SourceCodeExample/>
@@ -55,6 +111,7 @@
 		padding: 20px;
 		box-sizing: border-box;
 		background-color: var(--ui-background);
+		color: var(--term-normal-white);
 	}
 
 	.terminal {
@@ -73,15 +130,53 @@
 		margin: 10px;
 	}
 
-	.mac {
+	.Mac {
 		box-shadow: #00000050 0px 10px 50px;
 		border-radius: 6px;
+		border: solid #333 1px;
+	}
+
+	.windowdecor {
+		position: relative;
+		padding: 0px;
+	}
+
+	.WM {
+		border: solid var(--term-normal-black) 2px;
+	}
+
+	.WM:hover {
+		border: solid var(--term-normal-magenta) 2px;
+	}
+
+	.Gnome {
+		border-radius: 6px 6px 0px 0px;
 		border: solid #333 1px;
 	}
 
 	:global(.windowdecorbutton) {
 		display: inline;
 		font-size: 20px;
+	}
+
+	.themeSelectArea {
+		margin-top: 30px;
+		margin-bottom: 20px;
+		margin-left: 10px;
+		line-height: 0px;
+
+		display: flex;
+		flex-direction: row;
+	}
+
+	.singleSelectArea {
+		margin: 5px;
+	}
+
+	select {
+		background-color: var(--term-normal-white);
+		padding: 5px;
+		width: 200px;
 	}
 
 	h1 {
