@@ -52,7 +52,17 @@
 	{#if selectedWindowStyle == 'WM'}
 		<BarWM/>
 	{/if}
-	<div class="themeSelectArea">
+	<div class="window themeSelection {selectedWindowStyle}">
+		<div class="windowdecor">
+			{#if selectedWindowStyle == 'Mac'}
+				<WindowDecorMac title="Colorscheme Compare"/>
+			{/if}
+			{#if selectedWindowStyle == 'Gnome'}
+				<WindowDecorGnome title="Colorscheme Compare"/>
+			{/if}
+		</div>
+		<i>Note: syntax highlighting and colors are not guaranteed to be exactly the same you would get actually trying out the colorscheme.<br>I did my best.</i>
+		<br>
 		<div class="singleSelectArea">
 			<h4>Colorscheme</h4>
 			<select class="{selectedWindowStyle}" bind:value={selectedColorscheme} on:change="{() => changeColorscheme()}">
@@ -75,7 +85,7 @@
 		</div>
 	</div>
 
-	<div class="terminal {selectedWindowStyle}">
+	<div class="window terminal {selectedWindowStyle}">
 		<div class="windowdecor">
 			{#if selectedWindowStyle == 'Mac'}
 				<WindowDecorMac title="bash-5.1"/>
@@ -88,7 +98,7 @@
 		<Colorsquare/>
 	</div>
 
-	<div class="terminal {selectedWindowStyle}">
+	<div class="window terminal {selectedWindowStyle}">
 		<div class="windowdecor">
 			{#if selectedWindowStyle == 'Mac'}
 				<WindowDecorMac title="bash-5.1"/>
@@ -101,7 +111,7 @@
 		<Colorbars/>
 	</div>
 
-	<div class="editor {selectedWindowStyle}">
+	<div class="window editor {selectedWindowStyle}">
 		<div class="windowdecor">
 			{#if selectedWindowStyle == 'Mac'}
 				<WindowDecorMac title="vim"/>
@@ -124,20 +134,18 @@
 		color: var(--term-normal-white);
 	}
 
-	.terminal {
-		font-family: "Hack Nerd Font Mono";
-		font-size: 17px;
+	.window {
 		color: var(--term-normal-white);
 		padding: 10px;
 		margin: 10px;
 	}
 
-	.editor {
-		font-family: "Hack Nerd Font Mono";
+	.window.terminal {
+		font-size: 17px;
+	}
+
+	.window.editor {
 		font-size: 14px;
-		color: var(--term-normal-white);
-		padding: 10px;
-		margin: 10px;
 	}
 
 	.Mac {
@@ -169,18 +177,18 @@
 		font-size: 20px;
 	}
 
-	.themeSelectArea {
-		margin-top: 30px;
+	.themeSelection {
+		margin-top: 40px;
 		margin-bottom: 20px;
 		margin-left: 10px;
-		line-height: 0px;
-
-		display: flex;
-		flex-direction: row;
+		font-size: 13px;
 	}
 
 	.singleSelectArea {
 		margin: 5px;
+		display: inline-block;
+		line-height: 0px;
+		font-size: 16px;
 	}
 
 	select {
