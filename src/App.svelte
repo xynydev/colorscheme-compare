@@ -2,7 +2,7 @@
 	// import Select from 'svelte-select';
 
 	let selectedColorscheme;
-	let colorschemes = ['Horizon Dark','Tokyo Night', 'Catpuccin'];
+	let colorschemes = ['Horizon Dark','Tokyo Night', 'Catpuccin', 'Solarized Dark', 'Dracula', 'Nord Polar Night', 'Ayu Dark', 'Gruvbox Dark'];
 
 	let selectedWindowStyle;
 	let windowstyles = ['WM', 'Gnome', 'Mac'];
@@ -10,6 +10,11 @@
 	import * as horizondark from './themes/horizon-dark.json';
 	import * as tokyonight from './themes/tokyo-night.json';
 	import * as catpuccin from './themes/catpuccin.json';
+	import * as solarizeddark from './themes/solarized-dark.json';
+	import * as dracula from './themes/dracula.json';
+	import * as nordpolarnight from './themes/nord-polar-night.json';
+	import * as ayudark from './themes/ayu-dark.json';
+	import * as gruvboxdark from './themes/gruvbox-dark.json';
 
 	import Colorbars from './Colorscript-Colorbars.svelte';
 	import Colorsquare from './Colorscript-Square.svelte';
@@ -35,6 +40,26 @@
 				.join(';');
 		} else if (selectedColorscheme == 'Horizon Dark') {
 			cssVarStyles = Object.entries(horizondark["default"])
+				.map(([key, value]) => `--${key}:${value}`)
+				.join(';');
+		} else if (selectedColorscheme == 'Solarized Dark') {
+			cssVarStyles = Object.entries(solarizeddark["default"])
+				.map(([key, value]) => `--${key}:${value}`)
+				.join(';');
+		} else if (selectedColorscheme == 'Dracula') {
+			cssVarStyles = Object.entries(dracula["default"])
+				.map(([key, value]) => `--${key}:${value}`)
+				.join(';');
+		} else if (selectedColorscheme == 'Nord Polar Night') {
+			cssVarStyles = Object.entries(nordpolarnight["default"])
+				.map(([key, value]) => `--${key}:${value}`)
+				.join(';');
+		} else if (selectedColorscheme == 'Ayu Dark') {
+			cssVarStyles = Object.entries(ayudark["default"])
+				.map(([key, value]) => `--${key}:${value}`)
+				.join(';');
+		} else if (selectedColorscheme == 'Gruvbox Dark') {
+			cssVarStyles = Object.entries(gruvboxdark["default"])
 				.map(([key, value]) => `--${key}:${value}`)
 				.join(';');
 		}

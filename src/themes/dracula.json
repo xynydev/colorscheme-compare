@@ -1,0 +1,27 @@
+{   
+    "term-normal-blue": "#BD93F9",
+    "term-normal-cyan": "#8BE9FD",
+    "term-normal-green": "#50FA7B",
+    "term-normal-magenta": "#FF79C6",
+    "term-normal-red": "#FF5555",
+    "term-normal-yellow": "#F1FA8C",
+    "term-normal-white": "#F8F8F2",
+    "term-normal-black": "#21222C",
+
+    "term-bright-blue": "#D6ACFF",
+    "term-bright-cyan": "#A4FFFF",
+    "term-bright-green": "#69FF94",
+    "term-bright-magenta": "#FF92DF",
+    "term-bright-red": "#FF6E6E",
+    "term-bright-yellow": "#FFFFA5",
+    "term-bright-white": "#FFFFFF",
+    "term-bright-black": "#6272A4",
+
+    "syntax-keyword": "#ff79c6",
+    "syntax-function": "#50fa7b",
+    "syntax-string": "#f1fa8c",
+    "syntax-var": "#f8f8f2",
+    "syntax-comment": "#6272A4",
+
+    "ui-background": "#282a36"
+}
