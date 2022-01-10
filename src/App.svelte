@@ -5,7 +5,7 @@
 	let colorschemes = ['Horizon Dark','Tokyo Night', 'Catpuccin'];
 
 	let selectedWindowStyle;
-	let windowstyles = ['Mac', 'WM', 'Gnome'];
+	let windowstyles = ['WM', 'Gnome', 'Mac'];
 
 	import * as horizondark from './themes/horizon-dark.json';
 	import * as tokyonight from './themes/tokyo-night.json';
@@ -13,9 +13,12 @@
 
 	import Colorbars from './Colorscript-Colorbars.svelte';
 	import Colorsquare from './Colorscript-Square.svelte';
+	import SourceCodeExample from './SourceCodeExample.svelte';
 	import WindowDecorMac from './Decor-Mac.svelte';
 	import WindowDecorGnome from './Decor-Gnome.svelte';
-	import SourceCodeExample from './SourceCodeExample.svelte';
+	import BarMac from './Bar-Mac.svelte';
+	import BarGnome from './Bar-Gnome.svelte';
+	import BarWM from './Bar-WM.svelte';
 	
 	$: cssVarStyles = Object.entries(horizondark["default"])
 		.map(([key, value]) => `--${key}:${value}`)
@@ -39,9 +42,16 @@
 
 </script>
 
-<main style={cssVarStyles}>
-	<h1>Colorscheme Compare</h1>
-	
+<main style={cssVarStyles}>	
+	{#if selectedWindowStyle == 'Mac'}
+		<BarMac/>
+	{/if}
+	{#if selectedWindowStyle == 'Gnome'}
+		<BarGnome/>
+	{/if}
+	{#if selectedWindowStyle == 'WM'}
+		<BarWM/>
+	{/if}
 	<div class="themeSelectArea">
 		<div class="singleSelectArea">
 			<h4>Colorscheme</h4>
